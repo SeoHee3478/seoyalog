@@ -2,15 +2,15 @@ import PostCardItem from "@/components/block/PostCardItem";
 
 const PostListPage = () => {
   // 더미 데이터
-  const category = "Tech";
-  const title = "Exploring Next.js 13";
-  const content =
-    "Next.js 13 introduces several new features, including the new App Directory, Turbopack, and more. Let's dive into these new features and see how they can enhance your development workflow.";
+  const category = "Javascript";
+  const title = "브라우저 렌더링 원리";
+  const content = "url을 클릭하는 순간부터 페이지 로딩까지";
 
   return (
-    <div>
-      <h1>게시물 리스트 페이지 !</h1>
-      <PostCardItem category={category} title={title} content={content} />
+    <div className="border border-red-500 px-[16px] lg:px-[20px] flex justify-center items-center">
+      <div className="border border-indigo-500 w-[1170px]">
+        <PostCardItem category={category} title={title} content={content} />
+      </div>
     </div>
   );
 };
