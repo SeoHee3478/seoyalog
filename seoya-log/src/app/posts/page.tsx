@@ -1,5 +1,19 @@
-const PostListPage = () => {
-  return <h1>게시물 리스트 페이지 !</h1>;
-};
+import Link from "next/link";
+import { dummyPosts } from "@/helper/lib/dummyData";
 
-export default PostListPage;
+export default function PostsPage() {
+  return (
+    <div>
+      <h1>All Posts</h1>
+      <ul>
+        {dummyPosts.map((post) => (
+          <li key={post.id}>
+            <Link href={`/posts/${post.category}/${post.id}`}>
+              {post.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
