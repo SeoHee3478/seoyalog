@@ -1,6 +1,5 @@
-// pages/posts/page.tsx
 import Link from "next/link";
-import { dummyPosts } from "@/helper/lib/dummyData"; // 더미 데이터 사용
+import { dummyPosts } from "@/helper/lib/dummyData";
 
 export default function PostsPage() {
   return (

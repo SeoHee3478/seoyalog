@@ -1,4 +1,3 @@
-// lib/dummyData.js
 export const dummyPosts = [
   {
     category: "javascript",

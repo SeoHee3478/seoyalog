@@ -1,4 +1,3 @@
-// lib/posts.js
 import { dummyPosts } from "./dummyData";
 
 export function getAllPostIds() {
@@ -16,7 +15,7 @@ export async function getPostData(category, id) {
   );
 
   if (!post) {
-    console.error(`Post not found for category: ${category}, id: ${id}`); // 오류 로그 추가
+    console.error(`Post not found for category: ${category}, id: ${id}`);
     return null;
   }
 
