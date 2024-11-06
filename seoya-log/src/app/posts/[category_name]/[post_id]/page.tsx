@@ -1,5 +1,9 @@
-import { getAllPostIds, getPostData } from "@/helper/lib/posts";
-
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
+import { getAllPostIds } from "@/helper/lib/posts";
 interface Props {
   params: {
     category_name: string;
@@ -18,17 +22,17 @@ export async function generateStaticParams(): Promise<
 }
 
 export default async function Post({ params }: Props) {
-  const postData = await getPostData(params.category_name, params.post_id);
+  const filePath = path.join(process.cwd(), "content", `${params.post_id}.md`);
+  const fileContents = fs.readFileSync(filePath, "utf8");
 
-  if (!postData) {
-    return <div>Post not found</div>;
-  }
+  const { content, data } = matter(fileContents);
+
+  const processedContent = await remark().use(html).process(content);
+  const contentHtml = processedContent.toString();
 
   return (
     <div>
-      <h1>Category: {postData.category}</h1>
-      <h2>Post ID: {postData.id}</h2>
-      <p>{postData.content}</p>
+      <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
     </div>
   );
 }
