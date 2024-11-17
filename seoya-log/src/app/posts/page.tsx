@@ -26,6 +26,7 @@ async function getPosts() {
       title: data.title,
       category: data.category,
       date: data.date,
+      author: data.author,
       excerpt: data.excerpt || "",
       readTime: data.readTime || "",
       tags: data.tags || [],
