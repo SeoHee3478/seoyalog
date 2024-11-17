@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import { getAllPostIds } from "@/helper/lib/posts";
+import Comments from "@/components/block/Comments";
 interface Props {
   params: {
     category_name: string;
@@ -33,6 +34,7 @@ export default async function Post({ params }: Props) {
   return (
     <div>
       <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      <Comments postId={params.post_id} />
     </div>
   );
 }
