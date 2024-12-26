@@ -1,7 +1,5 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 import Link from "next/link";
+import { getPosts } from "@/lib/posts";
 import {
   Card,
   CardContent,
@@ -11,31 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarIcon, ClockIcon } from "lucide-react";
-
-async function getPosts() {
-  const postsDirectory = path.join(process.cwd(), "content");
-  const filenames = await fs.readdirSync(postsDirectory);
-
-  const posts = await Promise.all(filenames.map(async (filename) => {
-    const filePath = path.join(postsDirectory, filename);
-    const fileContents = fs.readFileSync(filePath, "utf8");
-    const { data } = matter(fileContents);
-
-    return {
-      id: filename.replace(/\.md$/, ""),
-      title: data.title,
-      category: data.category,
-      date: data.date,
-      author: data.author,
-      excerpt: data.excerpt || "",
-      readTime: data.readTime || "",
-      tags: data.tags || [],
-      ...data,
-    };
-  }));
-
-  return posts;
-}
 
 export default async function PostsPage() {
   const posts = await getPosts();
