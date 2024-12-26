@@ -14,9 +14,9 @@ import { CalendarIcon, ClockIcon } from "lucide-react";
 
 async function getPosts() {
   const postsDirectory = path.join(process.cwd(), "content");
-  const filenames = fs.readdirSync(postsDirectory);
+  const filenames = await fs.readdirSync(postsDirectory);
 
-  const posts = filenames.map((filename) => {
+  const posts = await Promise.all(filenames.map(async (filename) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, "utf8");
     const { data } = matter(fileContents);
@@ -32,7 +32,7 @@ async function getPosts() {
       tags: data.tags || [],
       ...data,
     };
-  });
+  }));
 
   return posts;
 }
