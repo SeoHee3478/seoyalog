@@ -1,8 +1,4 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import { remark } from "remark";
-import html from "remark-html";
+import { getPostData } from "@/lib/post";
 import { getAllPostIds } from "@/helper/lib/posts";
 import Comments from "@/components/block/Comments";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -17,6 +13,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { CalendarIcon, MessageSquare, ThumbsUp } from "lucide-react";
 import styles from "@/styles/postDetailPage.css";
+
 interface Props {
   params: {
     category_name: string;
@@ -35,13 +32,7 @@ export async function generateStaticParams(): Promise<
 }
 
 export default async function Post({ params }: Props) {
-  const filePath = path.join(process.cwd(), "content", `${params.post_id}.md`);
-  const fileContents = fs.readFileSync(filePath, "utf8");
-
-  const { content, data } = matter(fileContents);
-
-  const processedContent = await remark().use(html).process(content);
-  const contentHtml = processedContent.toString();
+  const { contentHtml, data } = await getPostData(params.post_id);
 
   return (
     <Card className="max-w-4xl mx-auto my-8">
